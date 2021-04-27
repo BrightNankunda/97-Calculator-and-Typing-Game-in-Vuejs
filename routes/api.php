@@ -33,3 +33,10 @@ Route::post('posts', 'App\Http\Controllers\PostController@store');
 Route::get('posts', 'App\Http\Controllers\PostController@get');
 Route::delete('posts/{id}', 'App\Http\Controllers\PostController@delete');
 Route::get('show/{id}', 'App\Http\Controllers\PostController@show');
+
+
+Route::get('articles', 'App\Http\Controllers\ArticleController@index');
+Route::post('articles', 'App\Http\Controllers\ArticleController@store');
+Route::get('article/{id}', 'App\Http\Controllers\ArticleController@show');
+Route::put('article/{id}', 'App\Http\Controllers\ArticleController@update');
+Route::delete('article/{id}', 'App\Http\Controllers\ArticleController@delete');
