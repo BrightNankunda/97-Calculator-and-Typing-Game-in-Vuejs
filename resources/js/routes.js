@@ -19,6 +19,7 @@ import Bphones from './components/Bphones.vue';
 import Post from './components/Post.vue';
 import Typing from './components/Typing.vue';
 import Calculator from './components/Calculator.vue';
+import SoftDeletes from './components/SoftDeletes';
 
 export default {
     mode: 'history',
@@ -28,6 +29,10 @@ export default {
             path: '/',
             component: Home
 
+        },
+        {
+            path: '/deletes',
+            component: SoftDeletes
         },
         {
             path: '/kampala',

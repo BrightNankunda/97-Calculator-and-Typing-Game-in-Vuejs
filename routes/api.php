@@ -22,6 +22,16 @@ Route::get('lasts', 'App\Http\Controllers\LastsController@index');
 Route::post('lasts', 'App\Http\Controllers\LastsController@store');
 Route::delete('lasts/{id}', 'App\Http\Controllers\LastsController@delete');
 
+Route::get('gadget', 'App\Http\Controllers\GadgetsController@index');
+Route::post('gadget', 'App\Http\Controllers\GadgetsController@store');
+Route::delete('gadget/{id}', 'App\Http\Controllers\GadgetsController@delete');
+Route::post('gadgetRestore/{id}', 'App\Http\Controllers\GadgetsController@restore');
+Route::post('gadgetRestoreAll', 'App\Http\Controllers\GadgetsController@restoreAll');
+Route::get('gadgetGetTrashed', 'App\Http\Controllers\GadgetsController@getTrashed');
+Route::get('gadgetGetAll', 'App\Http\Controllers\GadgetsController@getAll');
+Route::delete('gadgetForceDeleteAll', 'App\Http\Controllers\GadgetsController@forceDeleteAll');
+Route::delete('gadgetForceDelete/{id}', 'App\Http\Controllers\GadgetsController@forceDelete');
+
 Route::get('profile', 'App\Http\Controllers\ProfileController@index');
 Route::post('profile', 'App\Http\Controllers\ProfileController@store');
 Route::get('index','App\Http\Controllers\TodoController@index');

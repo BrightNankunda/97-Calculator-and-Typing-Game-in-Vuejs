@@ -8,17 +8,18 @@
 <script>
 export default {
   name: "header",
+
+  data() {
+    return {
+      number: "",
+    };
+  },
+  methods: {
+    append() {
+      return (this.number = 10);
+    },
+  },
 };
-data() {
-  return {
-    number: ''
-  }
-}
-methods: {
-  append() {
-    return this.number = 10
-  }
-}
 </script>
 
 <style scoped>

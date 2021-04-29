@@ -11,11 +11,14 @@
             <router-link class="text-white px-3" to="/posts">Home</router-link>
 
             <router-link class="text-white px-3" to="/image">Upload Image</router-link>
-            <router-link class="text-white px-3" to="/createpost">Upload A Post</router-link>
+            <router-link class="text-white px-3" to="/createpost"
+              >Upload A Post</router-link
+            >
             <router-link class="text-white px-3" to="/last">Last</router-link>
             <router-link to="/details" class="text-white px-3">Details</router-link>
             <router-link to="/typing" class="text-white px-3">Typing</router-link>
             <router-link to="/calculator" class="text-white px-3">Calc</router-link>
+            <router-link class="text-white px-3" to="/deletes">Soft Deletes</router-link>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
@@ -40,10 +43,10 @@
         </b-collapse>
       </b-navbar>
     </div>
-    <p class="lead text-center">Nankunda bright home page</p>
-    <div>
-      <router-view></router-view>
-    </div>
+    <!-- <p class="lead text-center">Nankunda bright home page</p> -->
+    <!-- <div> -->
+    <router-view></router-view>
+    <!-- </div> -->
     <div class="footer">
       <h2>My Footer</h2>
     </div>
