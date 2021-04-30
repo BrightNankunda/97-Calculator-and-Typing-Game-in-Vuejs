@@ -9,7 +9,7 @@ class GadgetsController extends Controller
 {
     public function index() {
         $gadgets = Gadgets::orderBy('created_at', 'desc')->get();
-        return resonse()->json($gadgets);
+        return response()->json($gadgets);
     }
     public function store(Request $request) {
         $gadget = new Gadgets();
@@ -39,25 +39,25 @@ class GadgetsController extends Controller
         return response()->json($gadgets);
     }
     public function restore($id) {
-        $trashedGadget = Gadgets::withTrashed($id)->restore();
-        // $trashedGadget->restore();
+        $trashedGadget = Gadgets::onlyTrashed()->where('id', '=', $id)->restore();
         
-        return response()->json('restored');
+        
+        return response()->json('RESTORED '.$id);
     }
     public function restoreAll() {
-        $trashed = Gadgets::onlyTrashed()->restore()->get();
-        return response()->json($trashed);
+        $trashed = Gadgets::onlyTrashed()->restore();
+        return response()->json('RESTORED ALL');
     }
     public function forceDelete($id) {
-        $toDelete = Gadgets::withTrashed($id);
-        $toDelete->forceDelete($id);
+        $toDelete = Gadgets::where('id', '=', $id)->withTrashed();
+        $toDelete->forceDelete();
 
-        return response()->json('Deleted');
+        return response()->json('Force fully Deleted');
     }
     public function forceDeleteAll() {
         $toDelete = Gadgets::onlyTrashed();
         if($toDelete->forceDelete()) {
-            return response()->json(['DELETED ']);
+            return response()->json('DELETED ALL FORCE FULLY');
         }
     }
 }

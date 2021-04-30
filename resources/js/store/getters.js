@@ -8,6 +8,12 @@ let getters = {
     user: state => {
         return state.user
     },
+    gadgets: state => {
+        return state.gadgets
+    },
+    deletedGadgets: state => {
+        return state.deletedGadgets
+    },
     bytesUntilLevelUp: state => {
         return Math.round(state.player.nextLevel - state.totalBytes)
     },

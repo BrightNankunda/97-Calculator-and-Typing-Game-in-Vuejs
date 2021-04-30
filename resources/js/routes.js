@@ -22,7 +22,7 @@ import Calculator from './components/Calculator.vue';
 import SoftDeletes from './components/SoftDeletes';
 
 export default {
-    mode: 'history',
+    // mode: 'history',
 
     routes: [
         {

@@ -1,3 +1,5 @@
+import state from "./state"
+
 let mutations = {
     CREATE_POST(state, post) {
         state.posts.unshift(post)
@@ -53,6 +55,29 @@ let mutations = {
     levelUp(state) {
         state.player.level++
         state.player.nextLevel *= state.player.increase
+    },
+    gadgets(state, data) {
+        state.gadgets = data
+    },
+    addAGadget(state, data) {
+        state.gadgets.unshift(data)
+    },
+    deleteGadget(state, id) {
+        let index = state.gadgets.findIndex(gadget => gadget.id === id)
+        state.gadgets.splice(index, 1)
+    },
+    AddDeleted(state, data) {
+        // state.deletedGadgets = [...data]
+        state.deletedGadgets = data
+    },
+    restoreAllDeleted(state, data) {
+        state.gadgets.unshift(data)
+        // state.gedgets = [...state.gadgets, data]
+        state.deletedGadgets.splice(0)
+    },
+    forceDeleteGadget(state, id) {
+        let index = state.gadgets.findIndex(gadget => gadget.id === id)
+        state.gadgets.splice(index, 1)
     },
     buyUpgrade(state, {index, amount}) {
         if(state.bytes >= state.upgrades[index].cost ) {

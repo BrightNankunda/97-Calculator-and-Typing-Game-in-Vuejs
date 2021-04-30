@@ -1,5 +1,8 @@
 let state = {
     posts: [],
+    gadgets: null,
+    deletedGadgets: null,
+    
     user: [],
     filter: 'all',
     lasts: [],
