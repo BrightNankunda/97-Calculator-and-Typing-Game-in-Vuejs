@@ -124,15 +124,37 @@
             </div>
           </div>
         </div>
-        
       </div>
       <div class="row">
-          <div class="d-flex justify-content-center">
-            <button class="btn btn-primary" :disbled="disablePrevious">Previous</button>
-            <button class="btn btn-primary" @click="firstPage">1</button>
-            <button class="btn btn-primary" @click="nextPage" :disabled="disableNext">Next</button>
+        <div class="w-100 d-flex justify-content-center">
+          <button
+            class="btn btn-primary m-2"
+            :class="{ diasbled: disablePrevious }"
+            :disabled="disablePrevious"
+            @click="prevPage"
+          >
+            Previous
+          </button>
+          <div class="d-flex justify-content-center" v-for="page in pages" :key="page">
+            <button
+              class="btn btn-primary m-2"
+              :class="{ active: currentPage === page }"
+              @click="getPageContents(page)"
+            >
+              {{ page }}
+            </button>
           </div>
+
+          <button
+            class="btn btn-primary m-2"
+            :class="{ diasbled: disableNext }"
+            @click="nextPage"
+            :disabled="disableNext"
+          >
+            Next
+          </button>
         </div>
+      </div>
     </div>
   </div>
 </template>
@@ -144,14 +166,15 @@ export default {
       company: null,
       type: null,
       gadgets: null,
-      curentPage: 1,
-      pages:2,
+      currentPage: 1,
+      pages: 0,
       prev_page_url: null,
-      next_page_url: null
+      next_page_url: null,
+      lastPage: null,
     };
   },
   created() {
-    this.getGadgets();
+    this.getGadgets("1");
   },
   computed: {
     // gadgets() {
@@ -161,51 +184,54 @@ export default {
       return this.$store.getters.deletedGadgets.length;
     },
     disablePrevious() {
-      return this.prev_page_url === null
+      return this.prev_page_url === null;
     },
     disableNext() {
-      return this.next_page_url === null
+      return this.next_page_url === null;
     },
     // ...mapGetters(["gadgets", "deletedGadgets"]),
     ...mapGetters(["deletedGadgets"]),
-
   },
   methods: {
-    firstPage() {
-      console.log('NEXT PAGE');
+    getPageContents(page) {
+      this.getGadgets(page);
+    },
+    prevPage() {
+      this.currentPage -= 1;
+      console.log(this.currentPage);
+      this.getGadgets(this.currentPage);
+      return;
     },
     nextPage() {
-      this.current_page = 2
-      console.log(this.current_page);
-      this.getGadgets()
-      return
+      this.currentPage += 1;
+      console.log(this.currentPage);
+      this.getGadgets(this.currentPage);
+      return;
     },
-    getGadgets() {
+    getGadgets(page) {
       // this.$store.dispatch("getGadgets");
-      let url
-      if(this.current_page = 1) {
-        url = 'api/gadget?page=1'
+      let url = `api/gadget?page=${parseInt(page)}`;
 
-      } else {
-        url = 'api/gadget?page=2'
-      }
-      axios.get(url).then(res => {
-        console.log(res.data.current_page, res.data.data,)
-        this.gadgets = res.data.data
-        this.current_page = res.data.current_page
-        this.prev_page_url = res.data.prev_page_url
-        this.next_page_url = res.data.next_page_url
-        // this.per_page = res.data.
-      }).catch(err => {
-        console.log(err.response);
-      })
+      axios
+        .get(url)
+        .then((res) => {
+          console.log(res.data.current_page, res);
+          this.pages = res.data.last_page
+          this.gadgets = res.data.data;
+          this.currentPage = res.data.current_page;
+          this.prev_page_url = res.data.prev_page_url;
+          this.next_page_url = res.data.next_page_url;
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     },
-    
-    
+
     addAGadget() {
       this.$store.dispatch("addAGadget", { company: this.company, type: this.type });
       this.type = " ";
       this.company = " ";
+      this.getGadgets("1");
     },
     deleteGadget(id) {
       this.$store.dispatch("deleteGadget", id);
@@ -234,5 +260,11 @@ export default {
 }
 .red:hover {
   background: brown !important;
+}
+.active {
+  opacity: 0.9 !important;
+}
+.disabled {
+  opacity: 0.4 !important;
 }
 </style>
