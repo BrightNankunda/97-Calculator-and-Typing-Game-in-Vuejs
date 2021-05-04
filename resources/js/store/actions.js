@@ -22,6 +22,7 @@ let actions = {
         return new Promise((resolve, reject) => {
 
             axios.get('/api/gadget').then(res => {
+                console.log(res.data);
                 context.commit('gadgets', res.data)
                 resolve(res)
             }) 
@@ -55,14 +56,19 @@ let actions = {
     },
     restoreAllDeleted({commit}) {
         axios.post('/api/gadgetRestoreAll').then(res => {
-            commit('restoreAllDeleted', res.data)
+            console.log(res);
+            // commit('restoreAllDeleted', res.data)
+            this.getGadgets()
+            // this.fetchDeleted()
         }).catch(err => {
             console.log(err.response);
         })
     },
-    restoreDeleted({commit}, id) {
-        axios.post('/api/gadgetRestore' + id).then(res => {
+    restoreDeleted({context}, id) {
+        axios.post('/api/gadgetRestore/' + id).then(res => {
             console.log(res.data);
+            context.dispatch('getGadgets')
+            context.commit('restoreDeleted', id)
         }).catch(err => {
             console.log(err.response);
         })

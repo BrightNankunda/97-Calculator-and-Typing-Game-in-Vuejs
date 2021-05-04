@@ -3,22 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\GadgetsRepository;
 use App\Models\Gadgets;
 
 class GadgetsController extends Controller
 {
+    private $gadgetsRepository;
+
+    public function __construct(GadgetsRepository $gadgetsRepository) {
+        $this->gadgetsRepository = $gadgetsRepository;
+    }
+
     public function index() {
-        $gadgets = Gadgets::orderBy('created_at', 'desc')->get();
+
+        $gadgets = $this->gadgetsRepository->all();
         return response()->json($gadgets);
     }
-    public function store(Request $request) {
-        $gadget = new Gadgets();
-        // return response($request);
-        $gadget->type = $request->type;
-        $gadget->company = $request->company;
-        $gadget->save();
+    // public function store(Request $request) {
+    //     $gadget = new Gadgets();
+    //     $gadget->type = $request->type;
+    //     $gadget->company = $request->company;
+    //     $gadget->save();
 
-        return response()->json($gadget);
+    //     return response()->json($gadget);
+    // }
+    public function store(Request $request) {
+        $gadget = $this->gadgetsRepository->store($request);
+        return $gadget;
     }
     public function delete($id){
         $gadget = Gadgets::findOrFail($id);

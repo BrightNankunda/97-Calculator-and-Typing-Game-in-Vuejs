@@ -71,9 +71,13 @@ let mutations = {
         state.deletedGadgets = data
     },
     restoreAllDeleted(state, data) {
-        state.gadgets.unshift(data)
-        // state.gedgets = [...state.gadgets, data]
+        state.gadgets.push(...data)
+        
         state.deletedGadgets.splice(0)
+    },
+    restoreDeleted() {
+        let index = state.deletedGadgets.findIndex(deletedGadget => deletedGadget.id === id)
+        state.deletedGadgets.splice(index, 1)
     },
     forceDeleteGadget(state, id) {
         let index = state.gadgets.findIndex(gadget => gadget.id === id)
