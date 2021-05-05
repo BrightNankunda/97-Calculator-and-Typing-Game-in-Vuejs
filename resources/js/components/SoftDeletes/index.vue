@@ -38,6 +38,13 @@
         </div>
       </div>
       <div class="d-flex justify-content-center m-4">
+        <div class="col form-group">
+          <select class="form-control" :change="changePageSize">
+            <option value="1">1 per page</option>
+            <option value="2">2 per page</option>
+            <option value="3">3 per page</option>
+          </select>
+        </div>
         <div class="row w-100">
           <div class="col-lg-12 border rounded">
             <div class="d-flex justify-content-center flex-col">
@@ -193,6 +200,9 @@ export default {
     ...mapGetters(["deletedGadgets"]),
   },
   methods: {
+    setPageSize(e) {
+      console.log(e.target.value);
+    }
     getPageContents(page) {
       this.getGadgets(page);
     },
@@ -216,7 +226,7 @@ export default {
         .get(url)
         .then((res) => {
           console.log(res.data.current_page, res);
-          this.pages = res.data.last_page
+          this.pages = res.data.last_page;
           this.gadgets = res.data.data;
           this.currentPage = res.data.current_page;
           this.prev_page_url = res.data.prev_page_url;
