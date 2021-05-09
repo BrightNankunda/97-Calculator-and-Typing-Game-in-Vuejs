@@ -3,20 +3,17 @@
 namespace App\Repositories;
 use App\Models\Gadgets;
 
-class GadgetsRepository {
+class GadgetsRepository implements GadgetsRepositoryInterface {
    public function all() {
       // $pageQuery = request()->input('page');
       // return $pageQuery;
-      return Gadgets::orderBy('created_at', 'desc')->paginate(2);
-         // ->map(function ($gadget) {
-         //       return [
-         //          'GADGET ID' => $gadget->id,
-         //          'GADGET TYPE' => $gadget->type,
-         //          'COMPANY NAME' => $gadget->company,
-         //          'DELETED DATE' => $gadget->deleted_at,
-         //          'CREATED DATE' => $gadget->created_at->diffForHumans()
-         //       ];
-         // });
+      // return Gadgets::orderBy('created_at', 'desc')->get()
+      //    ->map(function ($gadget) {
+      //       return $gadget->format();
+      //    });
+         return Gadgets::orderBy('created_at', 'desc')->get()
+         ->map->format();
+         // return $this->format();
          
    }
    public function store($request) {

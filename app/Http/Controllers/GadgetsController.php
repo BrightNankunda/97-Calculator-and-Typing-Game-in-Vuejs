@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\GadgetsRepository;
+use App\Repositories\GadgetsRepositoryInterface;
 use App\Models\Gadgets;
 
 class GadgetsController extends Controller
 {
     private $gadgetsRepository;
 
-    public function __construct(GadgetsRepository $gadgetsRepository) {
+    public function __construct(GadgetsRepositoryInterface $gadgetsRepository) {
         $this->gadgetsRepository = $gadgetsRepository;
     }
 
